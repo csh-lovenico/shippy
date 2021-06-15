@@ -61,7 +61,6 @@ func main() {
 		micro.Version("latest"))
 	s.Init()
 	pb.RegisterShippingServiceHandler(s.Server(), &service{repo})
-	log.Println("Running on port:", PORT)
 	if err := s.Run(); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
