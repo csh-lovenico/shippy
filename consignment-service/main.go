@@ -8,7 +8,7 @@ import (
 	"net"
 	"sync"
 
-	pb "shippy/consignment-service/proto/consignment"
+	pb "github.com/csh980717/shippy/consignment-service/proto/consignment"
 )
 
 const (
