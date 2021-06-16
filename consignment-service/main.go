@@ -2,15 +2,11 @@ package main
 
 import (
 	"context"
-	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/v2"
 	"log"
 	"sync"
 
 	pb "github.com/csh980717/shippy/consignment-service/proto/consignment"
-)
-
-const (
-	PORT = ":50051"
 )
 
 type repository interface {
