@@ -28,7 +28,7 @@ func parseFile(file string) (*pb.Consignment, error) {
 func main() {
 	cmd.Init()
 
-	client := pb.NewShippingServiceClient("consignment", microclient.DefaultClient)
+	client := pb.NewShippingServiceClient("consignment-service", microclient.DefaultClient)
 	file := defaultFilename
 	if len(os.Args) > 1 {
 		file = os.Args[1]
