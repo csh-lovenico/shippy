@@ -3,3 +3,6 @@ build-vessel:
 
 build-docker-vessel:
 	docker build -t vessel-service .
+
+run-vessel:
+	docker run -p 50052:50051 -e MICRO_SERVER_ADDRESS=:50051 -e MICRO_REGISTRY=mdns vessel-service
