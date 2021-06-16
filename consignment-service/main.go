@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-const defaultHost = "ksks.bokurano.live:27017"
+const defaultHost = "localhost:27017"
 
 func main() {
 	host := os.Getenv("DB_HOST")
