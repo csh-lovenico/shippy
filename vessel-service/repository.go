@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	dbName                = "shippy"
-	consignmentCollection = "consignments"
+	dbName           = "shippy"
+	vesselCollection = "vessels"
 )
 
 type Repository interface {
@@ -42,5 +42,5 @@ func (repo *VesselRepository) Create(consignment *pb.Vessel) error {
 }
 
 func (repo *VesselRepository) collection() *mgo.Collection {
-	return repo.session.DB(dbName).C(consignmentCollection)
+	return repo.session.DB(dbName).C(vesselCollection)
 }
