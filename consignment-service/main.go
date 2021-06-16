@@ -40,13 +40,14 @@ func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, re
 	if err != nil {
 		return err
 	}
-	resp = &pb.Response{Created: true, Consignment: consignment}
+	resp.Created = true
+	resp.Consignment = consignment
 	return nil
 }
 
 func (s *service) GetConsignments(ctx context.Context, req *pb.GetRequest, resp *pb.Response) error {
 	consignments := s.repo.GetAll()
-	resp = &pb.Response{Consignments: consignments}
+	resp.Consignments = consignments
 	return nil
 }
 
