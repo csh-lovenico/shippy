@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	pb "github.com/csh980717/shippy/vessel-service/proto/vessel"
-	"github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro"
 	"log"
 )
 
@@ -45,9 +45,7 @@ func main() {
 	service := micro.NewService(
 		micro.Name("vessel-service"))
 	service.Init()
-	if err := pb.RegisterVesselServiceHandler(service.Server(), &vesselService{repo}); err != nil {
-		log.Panic(err)
-	}
+	pb.RegisterVesselServiceHandler(service.Server(), &vesselService{repo})
 	if err := service.Run(); err != nil {
 		log.Panic(err)
 	}
