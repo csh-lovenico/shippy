@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro"
 	"log"
 	"sync"
 
