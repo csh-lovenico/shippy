@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"encoding/json"
+	pb "github.com/csh980717/shippy/consignment-service/proto/consignment"
+	microclient "github.com/micro/go-micro/client"
+	"github.com/micro/go-micro/v2/config/cmd"
 	"io/ioutil"
 	"log"
 	"os"
-
-	pb "github.com/csh980717/shippy/consignment-service/proto/consignment"
-	"github.com/micro/go-micro/v2"
 )
 
 const (
@@ -26,10 +26,9 @@ func parseFile(file string) (*pb.Consignment, error) {
 }
 
 func main() {
-	service := micro.NewService(micro.Name("consignment-cli"))
-	service.Init()
+	cmd.Init()
 
-	client := pb.NewShippingService("consignment", service.Client())
+	client := pb.NewShippingServiceClient("consignment", microclient.DefaultClient)
 	file := defaultFilename
 	if len(os.Args) > 1 {
 		file = os.Args[1]
