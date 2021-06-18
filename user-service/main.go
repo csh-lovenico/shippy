@@ -15,13 +15,14 @@ func main() {
 	db.AutoMigrate(&pb.User{})
 
 	repo := &UserRepository{db: db}
-
+	tokenService := &TokenService{repo: repo}
 	s := micro.NewService(
 		micro.Name("user-service"),
 		micro.Version("latest"))
 	s.Init()
 	pb.RegisterUserServiceHandler(s.Server(), &service{
-		repo: repo,
+		repo:         repo,
+		tokenService: tokenService,
 	})
 	if err := s.Run(); err != nil {
 		log.Println(err)
