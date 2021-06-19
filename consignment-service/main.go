@@ -40,6 +40,9 @@ func main() {
 
 func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 	return func(ctx context.Context, req server.Request, rsp interface{}) error {
+		if os.Getenv("DISABLE_AUTH") == "true" {
+			return fn(ctx, req, rsp)
+		}
 		meta, ok := metadata.FromContext(ctx)
 		if !ok {
 			return errors.New("no auth meta-data found in request")
