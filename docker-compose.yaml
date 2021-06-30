@@ -43,6 +43,11 @@ services:
     environment:
       MICRO_REGISTRY: "mdns"
 
+  email-service:
+    build: ./email-service
+    environment:
+      MICRO_REGISTRY: "mdns"
+
   datastore:
     image: mongo
     ports:
