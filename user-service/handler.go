@@ -27,6 +27,9 @@ func (s *service) Create(ctx context.Context, req *pb.User, res *pb.Response) er
 		return err
 	}
 	res.User = req
+	if err := s.publishEvent(req); err != nil {
+		return err
+	}
 	return nil
 }
 
