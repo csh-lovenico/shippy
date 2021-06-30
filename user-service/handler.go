@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	pb "github.com/csh980717/shippy/user-service/proto/user"
+	"github.com/micro/go-micro/broker"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/context"
 	"log"
@@ -10,7 +12,10 @@ import (
 type service struct {
 	repo         Repository
 	tokenService Authable
+	pubSub       broker.Broker
 }
+
+const topic = "user.created"
 
 func (s *service) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
@@ -62,5 +67,22 @@ func (s *service) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
 }
 
 func (s *service) ValidateToken(context context.Context, token *pb.Token, token2 *pb.Token) error {
+	return nil
+}
+
+func (s *service) publishEvent(user *pb.User) error {
+	body, err := json.Marshal(user)
+	if err != nil {
+		return err
+	}
+	msg := &broker.Message{
+		Header: map[string]string{
+			"id": user.Id,
+		},
+		Body: body,
+	}
+	if err := s.pubSub.Publish(topic, msg); err != nil {
+		log.Fatalf("[pub] failed: %v\n", err)
+	}
 	return nil
 }
