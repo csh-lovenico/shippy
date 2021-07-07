@@ -20,14 +20,13 @@ func main() {
 		micro.Name("user-service"),
 		micro.Version("latest"))
 	s.Init()
-	pubSub := s.Server().Options().Broker
+	publisher := micro.NewPublisher(topic, s.Client())
 	pb.RegisterUserServiceHandler(s.Server(), &service{
 		repo:         repo,
 		tokenService: tokenService,
-		pubSub:       pubSub,
+		pubSub:       publisher,
 	})
 	if err := s.Run(); err != nil {
 		log.Println(err)
 	}
-
 }
