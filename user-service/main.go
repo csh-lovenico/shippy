@@ -1,8 +1,9 @@
 package main
 
 import (
-	pb "github.com/csh980717/shippy/user-service/proto/user"
+	pb "github.com/csh980717/shippy/user-service/proto/auth"
 	"github.com/micro/go-micro"
+	_ "github.com/micro/go-plugins/registry/mdns"
 	"log"
 )
 
@@ -17,7 +18,7 @@ func main() {
 	repo := &UserRepository{db: db}
 	tokenService := &TokenService{repo: repo}
 	s := micro.NewService(
-		micro.Name("user-service"),
+		micro.Name("shippy.auth"),
 		micro.Version("latest"))
 	s.Init()
 	publisher := micro.NewPublisher(topic, s.Client())

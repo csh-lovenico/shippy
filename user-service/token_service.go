@@ -1,7 +1,7 @@
 package main
 
 import (
-	pb "github.com/csh980717/shippy/user-service/proto/user"
+	pb "github.com/csh980717/shippy/user-service/proto/auth"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 )
@@ -38,7 +38,7 @@ func (t *TokenService) Encode(user *pb.User) (string, error) {
 	claims := CustomClaims{
 		user, jwt.StandardClaims{
 			ExpiresAt: expireToken,
-			Issuer:    "user-service",
+			Issuer:    "auth-service",
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

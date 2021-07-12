@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package user;
-option go_package = "proto/user";
+package Auth;
+option go_package = "proto/auth";
 
-service UserService{
+service Auth{
   rpc Create(User) returns (Response) {}
   rpc Get(User) returns (Response) {}
   rpc GetAll(Request) returns (Response) {}

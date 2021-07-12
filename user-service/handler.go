@@ -1,7 +1,8 @@
 package main
 
 import (
-	pb "github.com/csh980717/shippy/user-service/proto/user"
+	"errors"
+	pb "github.com/csh980717/shippy/user-service/proto/auth"
 	"github.com/micro/go-micro"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/net/context"
@@ -14,9 +15,10 @@ type service struct {
 	pubSub       micro.Publisher
 }
 
-const topic = "user.created"
+const topic = "auth.created"
 
 func (s *service) Create(ctx context.Context, req *pb.User, res *pb.Response) error {
+	log.Println("Creating user: ", req)
 	hashedPass, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
@@ -53,7 +55,7 @@ func (s *service) GetAll(ctx context.Context, req *pb.Request, res *pb.Response)
 func (s *service) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
 	log.Println("Logging in with:", req.Email, req.Password)
 	user, err := s.repo.GetByEmail(req.Email)
-	log.Println(user)
+	log.Println(user, err)
 	if err != nil {
 		return err
 	}
@@ -68,6 +70,14 @@ func (s *service) Auth(ctx context.Context, req *pb.User, res *pb.Token) error {
 	return nil
 }
 
-func (s *service) ValidateToken(context context.Context, token *pb.Token, token2 *pb.Token) error {
+func (s *service) ValidateToken(context context.Context, req *pb.Token, res *pb.Token) error {
+	claims, err := s.tokenService.Decode(req.Token)
+	if err != nil {
+		return err
+	}
+	if claims.User.Id == "" {
+		return errors.New("invalid user")
+	}
+	res.Valid = true
 	return nil
 }
