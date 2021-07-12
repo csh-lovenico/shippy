@@ -22,7 +22,7 @@ func main() {
 		micro.Version("latest"))
 	s.Init()
 	publisher := micro.NewPublisher(topic, s.Client())
-	pb.RegisterUserServiceHandler(s.Server(), &service{
+	pb.RegisterAuthHandler(s.Server(), &service{
 		repo:         repo,
 		tokenService: tokenService,
 		pubSub:       publisher,
