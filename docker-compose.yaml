@@ -59,3 +59,11 @@ services:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: "postgres"
+
+  shippy-api:
+    image: "micro/micro:v1.18.0"
+    ports:
+      - 8080:8080
+    command: "api --handler=rpc --address=:8080 --namespace=shippy"
+    environment:
+      MICRO_REGISTRY: "mdns"
