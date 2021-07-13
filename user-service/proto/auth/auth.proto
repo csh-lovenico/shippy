@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Auth;
+package auth;
 option go_package = "proto/auth";
 
 service Auth{
@@ -10,7 +10,6 @@ service Auth{
   rpc Auth(User) returns (Token){}
   rpc ValidateToken(Token) returns (Token) {}
 }
-
 
 message User{
   string id = 1;
