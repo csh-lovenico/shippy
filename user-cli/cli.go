@@ -12,9 +12,9 @@ import (
 
 func main() {
 	cmd.Init()
-	client := pb.NewUserServiceClient("user-service", microclient.DefaultClient)
+	client := pb.NewUserServiceClient("shippy.auth", microclient.DefaultClient)
 	service := micro.NewService(
-		micro.Name("user-service-cli"),
+		micro.Name("auth-service-cli"),
 		micro.Version("latest"),
 	)
 	service.Init()
@@ -44,7 +44,7 @@ func main() {
 		Password: password,
 	})
 	if err != nil {
-		log.Fatalf("Could not authenticate user: %s error: %v\n", email, err)
+		log.Fatalf("Could not authenticate auth: %s error: %v\n", email, err)
 	}
 	log.Printf("Your access token is: %s \n", authResponse.Token)
 	os.Exit(0)
