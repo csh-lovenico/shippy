@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	pb "github.com/csh980717/shippy/consignment-service/proto/consignment"
-	"github.com/csh980717/shippy/user-service/proto/user"
+	"github.com/csh980717/shippy/user-service/proto/auth"
 	vesselProto "github.com/csh980717/shippy/vessel-service/proto/vessel"
 	"github.com/micro/go-micro"
 	microclient "github.com/micro/go-micro/client"
@@ -27,10 +27,10 @@ func main() {
 		log.Panicf("Could not connect to datastore with host %s - %v", host, err)
 	}
 	s := micro.NewService(
-		micro.Name("consignment-service"),
+		micro.Name("shippy.consignment"),
 		micro.Version("latest"),
 		micro.WrapHandler(AuthWrapper))
-	vesselClient := vesselProto.NewVesselServiceClient("vessel-service", s.Client())
+	vesselClient := vesselProto.NewVesselServiceClient("shippy.vessel", s.Client())
 	s.Init()
 	pb.RegisterShippingServiceHandler(s.Server(), &service{session, vesselClient})
 	if err := s.Run(); err != nil {
@@ -49,8 +49,8 @@ func AuthWrapper(fn server.HandlerFunc) server.HandlerFunc {
 		}
 		token := meta["token"]
 		log.Println("Authenticating with token: ", token)
-		authClient := user.NewUserServiceClient("user-service", microclient.DefaultClient)
-		_, err := authClient.ValidateToken(context.Background(), &user.Token{Token: token})
+		authClient := auth.NewAuthClient("shippy.auth", microclient.DefaultClient)
+		_, err := authClient.ValidateToken(context.Background(), &auth.Token{Token: token})
 		if err != nil {
 			return err
 		}

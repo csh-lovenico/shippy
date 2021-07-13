@@ -1,20 +1,19 @@
 package main
 
 import (
-	pb "github.com/csh980717/shippy/user-service/proto/user"
+	pb "github.com/csh980717/shippy/user-service/proto/auth"
 	"github.com/micro/go-micro"
-	_ "github.com/micro/go-plugins/broker/nats"
 	"golang.org/x/net/context"
 	"log"
 )
 
-const topic = "user.created"
+const topic = "auth.created"
 
 type Subscriber struct{}
 
 func main() {
 	s := micro.NewService(
-		micro.Name("email-service"),
+		micro.Name("shippy.email"),
 		micro.Version("latest"))
 	s.Init()
 	micro.RegisterSubscriber(topic, s.Server(), new(Subscriber))

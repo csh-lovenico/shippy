@@ -34,7 +34,7 @@ func main() {
 	createDummyData(repo)
 
 	service := micro.NewService(
-		micro.Name("vessel-service"))
+		micro.Name("shippy.vessel"))
 	service.Init()
 	pb.RegisterVesselServiceHandler(service.Server(), &vesselService{session})
 	if err := service.Run(); err != nil {

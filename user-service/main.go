@@ -18,8 +18,7 @@ func main() {
 	repo := &UserRepository{db: db}
 	tokenService := &TokenService{repo: repo}
 	s := micro.NewService(
-		micro.Name("shippy.auth"),
-		micro.Version("latest"))
+		micro.Name("shippy.auth"))
 	s.Init()
 	publisher := micro.NewPublisher(topic, s.Client())
 	pb.RegisterAuthHandler(s.Server(), &service{
@@ -28,6 +27,6 @@ func main() {
 		pubSub:       publisher,
 	})
 	if err := s.Run(); err != nil {
-		log.Println(err)
+		log.Fatal(err)
 	}
 }
