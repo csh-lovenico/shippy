@@ -1,11 +1,6 @@
 version: '3.1'
 
 services:
-  consignment-cli:
-    build: ./consignment-cli
-    environment:
-      MICRO_REGISTRY: "mdns"
-
   consignment-service:
     build: ./consignment-service
     ports:
@@ -37,11 +32,6 @@ services:
       DB_PORT: "5432"
       DB_USER: "postgres"
       DB_PASSWORD: "postgres"
-
-  user-cli:
-    build: ./user-cli
-    environment:
-      MICRO_REGISTRY: "mdns"
 
   email-service:
     build: ./email-service
