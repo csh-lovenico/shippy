@@ -3,7 +3,7 @@ module github.com/csh980717/shippy/email-service
 go 1.13
 
 require (
-	github.com/csh980717/shippy/user-service v0.0.0-20210619092246-114eb2661feb // indirect
+	github.com/csh980717/shippy/user-service v0.0.0-20210712084757-785e8d29ab31
 	github.com/micro/go-micro v1.18.0
-	github.com/micro/go-plugins v1.5.1 // indirect
+	golang.org/x/net v0.0.0-20210614182718-04defd469f4e
 )

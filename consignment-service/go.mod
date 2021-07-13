@@ -3,9 +3,8 @@ module github.com/csh980717/shippy/consignment-service
 go 1.16
 
 require (
-	github.com/csh980717/shippy/user-service v0.0.0-20210618095615-6ca80ae3c7c6 // indirect
+	github.com/csh980717/shippy/user-service v0.0.0-20210712084757-785e8d29ab31 // indirect
 	github.com/csh980717/shippy/vessel-service v0.0.0-20210616041555-71b0de97bd56
-	github.com/gogo/protobuf v1.2.2-0.20190723190241-65acae22fc9d // indirect
 	github.com/golang/protobuf v1.5.2
 	github.com/micro/go-micro v1.18.0
 	github.com/stretchr/testify v1.5.1 // indirect
