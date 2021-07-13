@@ -60,6 +60,7 @@ services:
     environment:
       POSTGRES_PASSWORD: "postgres"
 
+  # Usage: https://micro.mu/reference#api
   shippy-api:
     image: "micro/micro:v1.18.0"
     ports:
