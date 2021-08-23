@@ -9,7 +9,6 @@ WORKDIR /app
 ENV GO111MODULE=on
 
 COPY . .
-RUN go env -w GOPROXY=https://goproxy.cn,direct
 #RUN go get github.com/golang/protobuf/proto@v1.5.2
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o consignment-cli
